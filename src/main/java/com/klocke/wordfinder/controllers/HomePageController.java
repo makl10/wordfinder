@@ -25,3 +25,20 @@ public class HomePageController
         return true;
     }
 }
+
+
+/*
+    USAGE:
+
+    public static void main(String[] args)
+    {
+        final String word = "RAIN";
+
+        WordSearchFileReader reader = new DefaultWordSearchFileReader();
+        char[][] test = reader.readWordSearchFromFile("test.txt");
+
+        boolean matches = new HashMapWordSearchSolver().solveForWord(word, test);
+        System.err.println("MATCHES: " + matches);
+    }
+
+ */
