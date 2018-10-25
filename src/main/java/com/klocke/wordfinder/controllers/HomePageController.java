@@ -1,6 +1,7 @@
 package com.klocke.wordfinder.controllers;
 
 import com.klocke.wordfinder.file.WordSearchFileReader;
+import com.klocke.wordfinder.solver.WordSearchSolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,14 @@ public class HomePageController
     @Resource(name = "wordSearchFileReader")
     private WordSearchFileReader wordSearchFileReader;
 
+    @Resource(name = "wordSearchSolver")
+    private WordSearchSolver wordSearchSolver;
+
     @RequestMapping("/home")
     public String getHome(Model model) {
 
         System.out.println("GOT HOME");
         System.out.println(model);
-
 
         return "home";
     }
@@ -34,28 +37,18 @@ public class HomePageController
         System.out.println("Word: " + word);
 
         char[][] uploadedTemplate = wordSearchFileReader.readFromInputFile(file);
-        System.out.println(uploadedTemplate);
+        boolean contains = wordSearchSolver.solveForWord(word, uploadedTemplate);
+
 
         redirectAttributes.addFlashAttribute("message", "You have succesfully uploaded file with name: <b>" +
                 file.getOriginalFilename() + "</b> and the input word: <b>" + word + " </b>");
 
+        if(contains){
+            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is in the grid!");
+        }else{
+            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is NOT in the grid!");
+        }
+
         return "redirect:/home";
     }
 }
-
-
-/*
-    USAGE:
-
-    public static void main(String[] args)
-    {
-        final String word = "RAIN";
-
-        WordSearchFileReader reader = new DefaultWordSearchFileReader();
-        char[][] test = reader.readWordSearchFromFile("test.txt");
-
-        boolean matches = new HashMapWordSearchSolver().solveForWord(word, test);
-        System.err.println("MATCHES: " + matches);
-    }
-
- */

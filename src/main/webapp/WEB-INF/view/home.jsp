@@ -52,9 +52,11 @@
     </nav>
 
     <br>
-      <c:if test="${not empty message}">
-        ${message}
-      </c:if>
+    <c:if test="${not empty message}">
+      ${message}
+    </c:if>
+    <br>
+    ${result}
     <br>
 
     <c:url value="/uploadFile" var="submitUrl" />
