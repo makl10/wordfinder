@@ -41,14 +41,14 @@ public class DefaultWordSearchFileReader implements WordSearchFileReader
     }
 
     @Override
-    public char[][] readFromInputFile(MultipartFile file)
+    public char[][] readFromInputFile(MultipartFile multipartFile)
     {
-        File myFile = new File(file.getName());
+        File myFile = new File(multipartFile.getOriginalFilename());
 
-        if(file != null){
+        if(multipartFile != null){
             try
             {
-                file.transferTo(myFile);
+                multipartFile.transferTo(myFile);
                 BufferedReader br = new BufferedReader(new FileReader(myFile));
                 return readFile(br);
             }

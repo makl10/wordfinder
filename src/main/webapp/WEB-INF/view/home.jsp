@@ -51,15 +51,21 @@
       </div>
     </nav>
 
-    DISPLAY - ${display}
-    <c:if test="${display}">
-        <main role="main" class="container">  
-          <form method="POST" action="uploadFile" enctype="multipart/form-data">
-            File1 to upload: <input type="file" name="file"><br /> 
-            Name1: <input type="text" name="word"><br /> <br /> 
-          </form>
-      </main><!-- /.container -->
-    </c:if>
+    <br>
+      <c:if test="${not empty message}">
+        ${message}
+      </c:if>
+    <br>
+
+    <c:url value="/uploadFile" var="submitUrl" />
+      <main role="main" class="container">  
+        <form method="POST" action="${submitUrl}" enctype="multipart/form-data">
+          File1 to upload: <input type="file" name="file"><br /> 
+          Name1: <input type="text" name="word"><br /> <br /> 
+
+          <input type="submit" value="Submit" />
+        </form>
+    </main><!-- /.container -->
 
 
 
