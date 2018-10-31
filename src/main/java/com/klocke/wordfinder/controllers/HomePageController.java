@@ -1,5 +1,7 @@
 package com.klocke.wordfinder.controllers;
 
+import com.klocke.wordfinder.database.data.WordGrid;
+import com.klocke.wordfinder.database.service.WordGridService;
 import com.klocke.wordfinder.file.WordSearchFileReader;
 import com.klocke.wordfinder.solver.WordSearchSolver;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class HomePageController
     @Resource(name = "wordSearchSolver")
     private WordSearchSolver wordSearchSolver;
 
+    @Resource(name = "wordGridService")
+    private WordGridService wordGridService;
+
     @RequestMapping("/home")
     public String getHome(Model model) {
 
@@ -37,17 +42,24 @@ public class HomePageController
         System.out.println("Word: " + word);
 
         char[][] uploadedTemplate = wordSearchFileReader.readFromInputFile(file);
-        boolean contains = wordSearchSolver.solveForWord(word, uploadedTemplate);
+        WordGrid newGrid = new WordGrid(uploadedTemplate);
 
+        //Save in DB
+        int savedId = wordGridService.saveWordGrid(newGrid);
 
-        redirectAttributes.addFlashAttribute("message", "You have succesfully uploaded file with name: <b>" +
-                file.getOriginalFilename() + "</b> and the input word: <b>" + word + " </b>");
+        System.out.println("Succesfully saved new grid with id: " + savedId);
 
-        if(contains){
-            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is in the grid!");
-        }else{
-            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is NOT in the grid!");
-        }
+//        boolean contains = wordSearchSolver.solveForWord(word, uploadedTemplate);
+//
+//
+//        redirectAttributes.addFlashAttribute("message", "You have succesfully uploaded file with name: <b>" +
+//                file.getOriginalFilename() + "</b> and the input word: <b>" + word + " </b>");
+//
+//        if(contains){
+//            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is in the grid!");
+//        }else{
+//            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is NOT in the grid!");
+//        }
 
         return "redirect:/home";
     }

@@ -12,4 +12,7 @@
     <alias name="HashMapWordSearchSolver" alias="wordSearchSolver" />
     <bean id="HashMapWordSearchSolver" class="com.klocke.wordfinder.solver.impl.HashMapWordSearchSolver" />
 
+    <alias name="defaultWordGridService" alias="wordGridService" />
+    <bean id="defaultWordGridService" class="com.klocke.wordfinder.database.service.impl.DefaultWordGridService" />
+
 </beans>
