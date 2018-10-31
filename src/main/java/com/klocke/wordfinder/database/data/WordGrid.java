@@ -16,10 +16,14 @@ public class WordGrid
     @Column(name = "character_grid")
     private char[][] characterGrid;
 
+    @Column(name = "name")
+    private String name;
+
     public WordGrid(){}
 
-    public WordGrid(char[][] characterGrid) {
+    public WordGrid(char[][] characterGrid, String name) {
         this.characterGrid = characterGrid;
+        this.name = name;
     }
 
     public int getId() {
@@ -38,10 +42,19 @@ public class WordGrid
         this.characterGrid = characterGrid;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
+        buffer.append("Name: " + this.name + " \n");
         for(int i = 0; i < characterGrid.length; i++)
         {
             for(int j = 0; j < characterGrid[i].length; j++)

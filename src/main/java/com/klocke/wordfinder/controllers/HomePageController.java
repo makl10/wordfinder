@@ -13,15 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 public class HomePageController
 {
-    @Resource(name = "wordSearchFileReader")
-    private WordSearchFileReader wordSearchFileReader;
-
-    @Resource(name = "wordSearchSolver")
-    private WordSearchSolver wordSearchSolver;
+//    @Resource(name = "wordSearchSolver")
+//    private WordSearchSolver wordSearchSolver;
 
     @Resource(name = "wordGridService")
     private WordGridService wordGridService;
@@ -32,35 +30,13 @@ public class HomePageController
         System.out.println("GOT HOME");
         System.out.println(model);
 
+        List<WordGrid> allGrids = wordGridService.getAllWordGrids();
+        System.out.println(allGrids);
+
+        model.addAttribute("allGrids", allGrids);
+
         return "home";
     }
 
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("word") String word, RedirectAttributes redirectAttributes)
-    {
-        System.out.println("File Name:" + file.getName());
-        System.out.println("Word: " + word);
 
-        char[][] uploadedTemplate = wordSearchFileReader.readFromInputFile(file);
-        WordGrid newGrid = new WordGrid(uploadedTemplate);
-
-        //Save in DB
-        int savedId = wordGridService.saveWordGrid(newGrid);
-
-        System.out.println("Succesfully saved new grid with id: " + savedId);
-
-//        boolean contains = wordSearchSolver.solveForWord(word, uploadedTemplate);
-//
-//
-//        redirectAttributes.addFlashAttribute("message", "You have succesfully uploaded file with name: <b>" +
-//                file.getOriginalFilename() + "</b> and the input word: <b>" + word + " </b>");
-//
-//        if(contains){
-//            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is in the grid!");
-//        }else{
-//            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is NOT in the grid!");
-//        }
-
-        return "redirect:/home";
-    }
 }
