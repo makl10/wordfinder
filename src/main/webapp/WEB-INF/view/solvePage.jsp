@@ -25,36 +25,23 @@
 
     <nav:nav />
 
-    <br>
-    <c:if test="${not empty message}">
-      ${message}
-    </c:if>
-    <br>
-    ${result}
-    <br>
-
-    <c:url value="/uploadFile" var="submitUrl" />
-      <main role="main" class="container">  
-
-        <h2>All Grids Uploaded</h2>
-        <div>
-          <c:forEach items="${allGrids}" var="grid">
-          <div>
-            <span>Grid Name: ${grid.name}</span>
-            <br>
-            <span>Grid Id: ${grid.id}</span>
-            <br>
-            <c:forEach items="${grid.characterGrid}" var="characterGrid">
-              <c:forEach items="${characterGrid}" var="cellData" varStatus="loop">
-                ${cellData}
-              </c:forEach>
-              <br>
-            </c:forEach>
-
-            <%-- <span>Grid data: ${grid.characterGrid}</span> --%>
-          </div>
-          </c:forEach>
-        </div>
+  	<main role="main" class="container">
+  		<div>
+		    <br>
+    			${result}
+    		<br>
+  		</div>
+  		<div>
+  			<c:url value="/solve" var="solveUrl" />
+	  		<form action="${solveUrl}" method="POST">
+	  			Word To Check: <input type="text" name="word" /> <br>
+	  			Grid to check:
+		  		<c:forEach items="${allGrids}" var="grid">
+		  			<input type="radio" name="id" value="${grid.id}">${grid.name}</input>
+		  		</c:forEach>
+	            <input type="submit" value="Submit" />
+	  		</form>  			
+  		</div>
 
     </main><!-- /.container -->
 

@@ -36,26 +36,14 @@
     <c:url value="/uploadFile" var="submitUrl" />
       <main role="main" class="container">  
 
-        <h2>All Grids Uploaded</h2>
         <div>
-          <c:forEach items="${allGrids}" var="grid">
-          <div>
-            <span>Grid Name: ${grid.name}</span>
-            <br>
-            <span>Grid Id: ${grid.id}</span>
-            <br>
-            <c:forEach items="${grid.characterGrid}" var="characterGrid">
-              <c:forEach items="${characterGrid}" var="cellData" varStatus="loop">
-                ${cellData}
-              </c:forEach>
-              <br>
-            </c:forEach>
+          <form method="POST" action="${submitUrl}" enctype="multipart/form-data">
+            File1 to upload: <input type="file" name="file"><br /> 
+            Name1: <input type="text" name="name"><br /> <br /> 
 
-            <%-- <span>Grid data: ${grid.characterGrid}</span> --%>
-          </div>
-          </c:forEach>
+            <input type="submit" value="Submit" />
+          </form>
         </div>
-
     </main><!-- /.container -->
 
 

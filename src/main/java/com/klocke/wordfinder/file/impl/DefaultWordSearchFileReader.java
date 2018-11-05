@@ -77,6 +77,7 @@ public class DefaultWordSearchFileReader implements WordSearchFileReader
             line = br.readLine();
         }
 
+        //TODO - handle different sized grids
         if(!allStrings.isEmpty()){
             int xSize = allStrings.get(0).length();
             int ySize = allStrings.size();
