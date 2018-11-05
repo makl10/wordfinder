@@ -42,19 +42,6 @@ public class UploadController
 
         System.out.println("Succesfully saved new grid with id: " + savedId);
 
-        //TODO - pass in word to solve
-//        boolean contains = wordSearchSolver.solveForWord(word, uploadedTemplate);
-//
-//
-//        redirectAttributes.addFlashAttribute("message", "You have succesfully uploaded file with name: <b>" +
-//                file.getOriginalFilename() + "</b> and the input word: <b>" + word + " </b>");
-//
-//        if(contains){
-//            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is in the grid!");
-//        }else{
-//            redirectAttributes.addFlashAttribute("result", "The word: <b>" + word + "</b> is NOT in the grid!");
-//        }
-
         return "redirect:/uploadFile";
     }
 }
