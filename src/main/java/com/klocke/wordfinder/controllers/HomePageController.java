@@ -18,13 +18,13 @@ public class HomePageController
     @RequestMapping("/home")
     public String getHome(Model model) {
 
-        System.out.println("GOT HOME");
-        System.out.println(model);
-
-        List<WordGrid> allGrids = wordGridService.getAllWordGrids();
-        System.out.println(allGrids);
-
-        model.addAttribute("allGrids", allGrids);
+//        System.out.println("GOT HOME");
+//        System.out.println(model);
+//
+//        List<WordGrid> allGrids = wordGridService.getAllWordGrids();
+//        System.out.println(allGrids);
+//
+//        model.addAttribute("allGrids", allGrids);
 
         return "home";
     }
