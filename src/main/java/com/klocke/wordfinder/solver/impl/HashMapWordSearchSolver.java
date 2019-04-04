@@ -4,7 +4,6 @@ package com.klocke.wordfinder.solver.impl;
 
 import com.klocke.wordfinder.application.DIRECTION;
 import com.klocke.wordfinder.solver.WordSearchSolver;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -268,52 +267,46 @@ public class HashMapWordSearchSolver implements WordSearchSolver
 
         return matched;
     }
+}
 
 
-    private DIRECTION determineDirectionMatch(Map<Pair<Integer, Integer>, Character> valueMap, int x, int y, Character c){
+class Pair<T, Y>
+{
+    private T key;
+    private Y value;
 
-        //NORTH_WEST (x - 1, y - 1)
-        if(valueMap.containsKey(new Pair<>(x - 1, y - 1)) && valueMap.get(new Pair<>(x - 1, y - 1)) == c){
-            return DIRECTION.NORTH_WEST;
+    public Pair(T key, Y value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public T getKey() {
+        return key;
+    }
+
+    public void setKey(T key) {
+        this.key = key;
+    }
+
+    public Y getValue() {
+        return value;
+    }
+
+    public void setValue(Y value) {
+        this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj instanceof Pair){
+            return this.getKey().equals(((Pair) obj).getKey()) && this.getValue().equals(((Pair) obj).getValue());
         }
+        return super.equals(obj);
+    }
 
-        //NORTH (x, y - 1)
-        else if(valueMap.containsKey(new Pair<>(x, y - 1)) && valueMap.get(new Pair<>(x - 1, y - 1)) == c){
-            return DIRECTION.NORTH_WEST;
-        }
-
-        //NORTH_EAST (x + 1, y - 1)
-        else if(valueMap.containsKey(new Pair<>(x + 1, y - 1)) && valueMap.get(new Pair<>(x - 1, y - 1)) == c){
-            return DIRECTION.NORTH_WEST;
-        }
-
-        //EAST (x + 1, y)
-        else if(valueMap.containsKey(new Pair<>(x + 1, y)) && valueMap.get(new Pair<>(x - 1, y - 1)) == c){
-            return DIRECTION.NORTH_WEST;
-        }
-
-        //SOUTH_EAST (x + 1, y + 1)
-        else if(valueMap.containsKey(new Pair<>(x + 1, y + 1)) && valueMap.get(new Pair<>(x - 1, y - 1)) == c){
-            return DIRECTION.NORTH_WEST;
-        }
-
-        //SOUTH (x, y + 1)
-        else if(valueMap.containsKey(new Pair<>(x, y + 1)) && valueMap.get(new Pair<>(x - 1, y - 1)) == c){
-            return DIRECTION.NORTH_WEST;
-        }
-
-        //SOUTH_WEST (x - 1, y + 1)
-        else if(valueMap.containsKey(new Pair<>(x - 1, y + 1)) && valueMap.get(new Pair<>(x - 1, y - 1)) == c){
-            return DIRECTION.NORTH_WEST;
-        }
-
-        //WEST (x - 1, y)
-        else if(valueMap.containsKey(new Pair<>(x - 1, y)) && valueMap.get(new Pair<>(x - 1, y - 1)) == c){
-            return DIRECTION.NORTH_WEST;
-        }
-
-        else{
-            return null;
-        }
+    @Override
+    public int hashCode() {
+        return this.getKey().hashCode();
     }
 }
